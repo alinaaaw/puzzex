@@ -80,6 +80,7 @@ function replay(){
 
 function game(event){
     if (event.key == "ArrowUp"){
+        event.preventDefault();
         index = positions.indexOf(coposition[0])+5;
         if (index<positions.length){
             temp = corres[index].className.split(" ");
@@ -91,6 +92,7 @@ function game(event){
         }
     }
     if (event.key == "ArrowDown"){
+        event.preventDefault();
         index = positions.indexOf(coposition[0])-5;
         if (index>=0){
             temp = corres[index].className.split(" ");
@@ -102,6 +104,7 @@ function game(event){
         }
     }
     if (event.key == "ArrowRight"){
+        event.preventDefault();
         index = positions.indexOf(coposition[0])-1;
         if (index<=positions.length && (index+1)%5!=0){
             temp = corres[index].className.split(" ");
@@ -113,6 +116,7 @@ function game(event){
         }
     }
     if (event.key == "ArrowLeft"){
+        event.preventDefault();
         index = positions.indexOf(coposition[0])+1;
         if (index>=0 && index%5!=0){
             temp = corres[index].className.split(" ");
