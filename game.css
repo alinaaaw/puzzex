@@ -1,4 +1,4 @@
-/* body{touch-action: manipulation;} */
+body{touch-action: manipulation;}
 .block{
     width:60px;
     height:60px;
