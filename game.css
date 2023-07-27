@@ -26,8 +26,8 @@ button{
 }
 #arrows{
     position:absolute;
-    bottom:180px;
-    left:53%;
+    top:545px;
+    left:57%;
 }
 #up{
     left:45px;
@@ -244,7 +244,7 @@ button{
         right:77%;
     }
     #arrows{
-        bottom:390px;
+        top:350px;
         left:78%;
     }
 
