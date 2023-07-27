@@ -118,7 +118,7 @@ button{
     border:solid black 2px;
     margin:auto;
     position:relative;
-    top:150px;
+    bottom:30px;
     z-index:1;
 }
 #cancel{
@@ -133,7 +133,7 @@ button{
     font-size:40px;
     position:absolute;
     top:60px;
-    left:115px;
+    left:95px;
 }
 #resume{
     padding:8px;
