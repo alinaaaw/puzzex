@@ -13,6 +13,7 @@ let downBt = document.getElementById("down");
 let leftBt = document.getElementById("left");
 let rightBt = document.getElementById("right");
 let enterBt = document.getElementById("submit");
+let hide = document.getElementById("hide");
 let high = 999999;
 let cocolors;
 let coposition;
@@ -24,13 +25,33 @@ cancel.addEventListener("click",remove,false);
 document.getElementById("replay").addEventListener("click",replay,false);
 resume.addEventListener("click",back,false);
 rep.addEventListener("click",replay,false);
-upBt.addEventListener("click",up,false);
-downBt.addEventListener("click",down,false);
-leftBt.addEventListener("click",left,false);
-rightBt.addEventListener("click",right,false);
-enterBt.addEventListener("click",enter,false);
+hide.addEventListener("click",hideTime,false);
 
 replay();
+
+// activate arrows
+function act(){
+    document.addEventListener("keydown",game,false);
+    upBt.addEventListener("click",up,false);
+    downBt.addEventListener("click",down,false);
+    leftBt.addEventListener("click",left,false);
+    rightBt.addEventListener("click",right,false);
+    enterBt.addEventListener("click",enter,false);
+}
+
+function hideTime(){
+    document.getElementById("count").style.setProperty("visibility","hidden");
+    hide.removeEventListener("click",hideTime,false);
+    hide.textContent = "Show Time";
+    hide.addEventListener("click",showTime,false);
+}
+
+function showTime(){
+    document.getElementById("count").style.setProperty("visibility","visible");
+    hide.removeEventListener("click",showTime,false);
+    hide.textContent = "Hide Time";
+    hide.addEventListener("click",hideTime,false);
+}
 
 // remove the result box
 function remove(){
@@ -44,12 +65,7 @@ function remove(){
 function back(){
     result.style.setProperty("visibility","hidden");
     resume.style.setProperty("visibility","hidden");
-    document.addEventListener("keydown",game,false);
-    upBt.addEventListener("click",up,false);
-    downBt.addEventListener("click",down,false);
-    leftBt.addEventListener("click",left,false);
-    rightBt.addEventListener("click",right,false);
-    enterBt.addEventListener("click",enter,false);
+    act();
     timer = setInterval(time,100);
 }
 
@@ -77,13 +93,8 @@ function replay(){
     result.style.setProperty("visibility","hidden");
     resume.style.setProperty("visibility","hidden");
     rep.style.setProperty("visibility","hidden");
-    document.addEventListener("keydown",game,false);
     pause.addEventListener("click",stop,false);
-    upBt.addEventListener("click",up,false);
-    downBt.addEventListener("click",down,false);
-    leftBt.addEventListener("click",left,false);
-    rightBt.addEventListener("click",right,false);
-    enterBt.addEventListener("click",enter,false);
+    act();
     count = 0;
     timer = setInterval(time,100);
     cocolors = colors.slice();
@@ -169,6 +180,7 @@ function enter(){
         }
     }
     if (point==9){
+        showTime();
         document.getElementById("output").textContent = "You Win!";
         resume.style.setProperty("visibility","hidden");
         if (count<high){
