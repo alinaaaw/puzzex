@@ -45,6 +45,11 @@ function back(){
     result.style.setProperty("visibility","hidden");
     resume.style.setProperty("visibility","hidden");
     document.addEventListener("keydown",game,false);
+    upBt.addEventListener("click",up,false);
+    downBt.addEventListener("click",down,false);
+    leftBt.addEventListener("click",left,false);
+    rightBt.addEventListener("click",right,false);
+    enterBt.addEventListener("click",enter,false);
     timer = setInterval(time,100);
 }
 
@@ -74,6 +79,11 @@ function replay(){
     rep.style.setProperty("visibility","hidden");
     document.addEventListener("keydown",game,false);
     pause.addEventListener("click",stop,false);
+    upBt.addEventListener("click",up,false);
+    downBt.addEventListener("click",down,false);
+    leftBt.addEventListener("click",left,false);
+    rightBt.addEventListener("click",right,false);
+    enterBt.addEventListener("click",enter,false);
     count = 0;
     timer = setInterval(time,100);
     cocolors = colors.slice();
