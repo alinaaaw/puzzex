@@ -243,7 +243,6 @@ button{
     "r3c1 r3c2 r3c3";
     padding:3px;
     position:absolute;
-    right:54%;
     top:480px;
 }
 #r1c1{
@@ -273,23 +272,23 @@ button{
 #r3c3{
     grid-area:r3c3;
 }
-@media(min-width: 800px){
+@media(min-width: 1030px){
     #box1{
         top:100px;
-        width:425px;
-        height:425px;
+        width:395px;
+        height:395px;
         left:5%;
     }
     #box2{
         top:100px;
-        width:425px;
-        height:425px;
+        width:395px;
+        height:395px;
         right:5%;
     }
     #reference{
-        position:absolute;
-        top:200px;
-        right:45%;
+        position:relative;
+        top:160px;
+        margin:auto;
     }
     #leftright{
         padding-left:220px;
@@ -306,37 +305,37 @@ button{
         right:20%;
     }
     .block{
-        width:80px;
-        height:80px;
+        width:75px;
+        height:75px;
     }
     .row1{
         top:5px;
     }
     .row2{
-        top:88px;
+        top:82px;
     }
     .row3{
-        top:171px;
+        top:159px;
     }
     .row4{
-        top:254px;
+        top:236px;
     }
     .row5{
-        top:337px;
+        top:313px;
     }
     .col1{
         left:5px;
     }
     .col2{
-        left:88px;
+        left:82px;
     }
     .col3{
-        left:171px;
+        left:159px;
     }
     .col4{
-        left:254px;
+        left:236px;
     }
     .col5{
-        left:337px;
+        left:313px;
     }
 }
