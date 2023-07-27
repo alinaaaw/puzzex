@@ -11,8 +11,8 @@ body{touch-action: manipulation;}
     border:solid black 1px;
 }
 button{
-    width:45px;
-    height:45px;
+    width:50px;
+    height:50px;
     padding:3px;
     background-color:rgb(183, 183, 183);
     color:white;
@@ -21,28 +21,28 @@ button{
     position:absolute;
 }
 #submit{
-    width:80px;
-    top:100px;
-    left:28px
+    width:100px;
+    top:120px;
+    left:30px;
 }
 #arrows{
     position:absolute;
-    top:475px;
-    left:53%;
+    top:460px;
+    left:50%;
 }
 #up{
-    left:45px;
+    left:55px;
 }
 #down{
-    left:45px;
-    top:45px
+    left:55px;
+    top:55px
 }
 #left{
-    top:45px;
+    top:55px;
 }
 #right{
-    top:45px;
-    left:90px
+    top:55px;
+    left:110px
 }
 #leftright{
     width:115px;
@@ -63,7 +63,7 @@ button{
 }
 #count{
     width:fit-content;
-    font-size:23px;
+    font-size:20px;
     margin:auto;
 }
 #time{
