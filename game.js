@@ -165,7 +165,7 @@ function enter(){
 function game(event){
     if (event.key == "ArrowUp"){
         event.preventDefault();
-        right();
+        up();
     }
     if (event.key == "ArrowDown"){
         event.preventDefault();

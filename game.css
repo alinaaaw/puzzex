@@ -1,6 +1,6 @@
 .block{
-    width:80px;
-    height:80px;
+    width:70px;
+    height:70px;
     border:solid black 1.5px;
     position:absolute;
 }
@@ -26,7 +26,7 @@ button{
 }
 #arrows{
     position:absolute;
-    top:545px;
+    top:505px;
     left:57%;
 }
 #up{
@@ -155,8 +155,8 @@ button{
     background-color:green;
 }
 #box{
-    width:425px;
-    height:425px;
+    width:375px;
+    height:375px;
     background-color:black;
     position:relative;
     top:20px;
@@ -166,31 +166,31 @@ button{
     top:5px;
 }
 .row2{
-    top:88px;
+    top:78px;
 }
 .row3{
-    top:171px;
+    top:151px;
 }
 .row4{
-    top:254px;
+    top:224px;
 }
 .row5{
-    top:337px;
+    top:297px;
 }
 .col1{
     left:5px;
 }
 .col2{
-    left:88px;
+    left:78px;
 }
 .col3{
-    left:171px;
+    left:151px;
 }
 .col4{
-    left:254px;
+    left:224px;
 }
 .col5{
-    left:337px;
+    left:297px;
 }
 #reference{
     background-color:black;
@@ -204,7 +204,7 @@ button{
     padding:3px;
     position:absolute;
     right:60%;
-    top:550px;
+    top:510px;
 }
 #r1c1{
     grid-area:r1c1;
@@ -247,5 +247,42 @@ button{
         top:350px;
         left:78%;
     }
-
+    .block{
+        width:80px;
+        height:80px;
+    }
+    #box{
+        width:425px;
+        height:425px;
+    }
+    .row1{
+        top:5px;
+    }
+    .row2{
+        top:88px;
+    }
+    .row3{
+        top:171px;
+    }
+    .row4{
+        top:254px;
+    }
+    .row5{
+        top:337px;
+    }
+    .col1{
+        left:5px;
+    }
+    .col2{
+        left:88px;
+    }
+    .col3{
+        left:171px;
+    }
+    .col4{
+        left:254px;
+    }
+    .col5{
+        left:337px;
+    }
 }
