@@ -94,7 +94,8 @@ function replay(){
 }
 
 //arrow keys
-function up(){
+function up(event){
+    event.preventDefault();
     index = positions.indexOf(coposition[0])+5;
     if (index<positions.length){
         temp = corres[index].className.split(" ");
@@ -105,7 +106,8 @@ function up(){
         corres[index] = null;
     }
 }
-function down(){
+function down(event){
+    event.preventDefault();
     index = positions.indexOf(coposition[0])-5;
     if (index>=0){
         temp = corres[index].className.split(" ");
@@ -116,7 +118,8 @@ function down(){
         corres[index] = null;
     }
 }
-function left(){
+function left(event){
+    event.preventDefault();
     index = positions.indexOf(coposition[0])+1;
     if (index>=0 && index%5!=0){
         temp = corres[index].className.split(" ");
@@ -127,7 +130,8 @@ function left(){
         corres[index] = null;
     }
 }
-function right(){
+function right(event){
+    event.preventDefault();
     index = positions.indexOf(coposition[0])-1;
     if (index<=positions.length && (index+1)%5!=0){
         temp = corres[index].className.split(" ");
@@ -138,7 +142,8 @@ function right(){
         corres[index] = null;
     }
 }
-function enter(){
+function enter(event){
+    event.preventDefault();
     clearInterval(timer);
     document.removeEventListener("keydown",game,false);
     upBt.removeEventListener("click",up,false);
