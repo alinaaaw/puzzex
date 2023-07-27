@@ -8,6 +8,11 @@ let resume = document.getElementById("resume");
 let pause = document.getElementById("pause");
 let rep = document.getElementById("rep");
 let record = document.getElementById("record");
+let upBt = document.getElementById("up");
+let downBt = document.getElementById("down");
+let leftBt = document.getElementById("left");
+let rightBt = document.getElementById("right");
+let enterBt = document.getElementById("submit");
 let high = 999999;
 let cocolors;
 let coposition;
@@ -19,6 +24,11 @@ cancel.addEventListener("click",remove,false);
 document.getElementById("replay").addEventListener("click",replay,false);
 resume.addEventListener("click",back,false);
 rep.addEventListener("click",replay,false);
+upBt.addEventListener("click",up,false);
+downBt.addEventListener("click",down,false);
+leftBt.addEventListener("click",left,false);
+rightBt.addEventListener("click",right,false);
+enterBt.addEventListener("click",enter,false);
 
 replay();
 
@@ -50,7 +60,7 @@ function stop(){
 // make timer works
 function time(){
     count+=0.1;
-    document.getElementById("time").textContent = parseFloat(count).toFixed(1)+"s";
+    document.getElementById("time").textContent = "Time used: "+parseFloat(count).toFixed(1)+"s";
 }
 
 function replay(){
@@ -78,81 +88,98 @@ function replay(){
     }
 }
 
+//arrow keys
+function up(){
+    index = positions.indexOf(coposition[0])+5;
+    if (index<positions.length){
+        temp = corres[index].className.split(" ");
+        temp.push(coposition[0]);
+        coposition[0] = temp.splice(2,2).join(" ");
+        corres[index].className = temp.join(" ");
+        corres[index-5] = corres[index];
+        corres[index] = null;
+    }
+}
+function down(){
+    index = positions.indexOf(coposition[0])-5;
+    if (index>=0){
+        temp = corres[index].className.split(" ");
+        temp.push(coposition[0]);
+        coposition[0] = temp.splice(2,2).join(" ");
+        corres[index].className = temp.join(" ");
+        corres[index+5] = corres[index];
+        corres[index] = null;
+    }
+}
+function left(){
+    index = positions.indexOf(coposition[0])+1;
+    if (index>=0 && index%5!=0){
+        temp = corres[index].className.split(" ");
+        temp.push(coposition[0]);
+        coposition[0] = temp.splice(2,2).join(" ");
+        corres[index].className = temp.join(" ");
+        corres[index-1] = corres[index];
+        corres[index] = null;
+    }
+}
+function right(){
+    index = positions.indexOf(coposition[0])-1;
+    if (index<=positions.length && (index+1)%5!=0){
+        temp = corres[index].className.split(" ");
+        temp.push(coposition[0]);
+        coposition[0] = temp.splice(2,2).join(" ");
+        corres[index].className = temp.join(" ");
+        corres[index+1] = corres[index];
+        corres[index] = null;
+    }
+}
+function enter(){
+    clearInterval(timer);
+    document.removeEventListener("keydown",game,false);
+    compare = [6,7,8,11,12,13,16,17,18];
+    point = 0;
+    result.style.setProperty("visibility","visible");
+    document.getElementById("output").textContent = "Error";
+    resume.style.setProperty("visibility","visible");
+    for (let i = 0;i<9;i++){
+        color = corres[compare[i]].className.split(" ")[0];
+        refcolor = refblocks[i].className.split(" ")[0];
+        if (color == refcolor){
+            point++;
+        }
+    }
+    if (point==9){
+        document.getElementById("output").textContent = "You Win!";
+        resume.style.setProperty("visibility","hidden");
+        if (count<high){
+            high = count.toFixed(1);
+            record.textContent = "personal record: "+String(high)+"s";
+        }
+    }
+    else{
+        document.getElementById("output").textContent = "You Failed";
+        resume.style.setProperty("visibility","hidden");
+    }
+}
+
 function game(event){
     if (event.key == "ArrowUp"){
         event.preventDefault();
-        index = positions.indexOf(coposition[0])+5;
-        if (index<positions.length){
-            temp = corres[index].className.split(" ");
-            temp.push(coposition[0]);
-            coposition[0] = temp.splice(2,2).join(" ");
-            corres[index].className = temp.join(" ");
-            corres[index-5] = corres[index];
-            corres[index] = null;
-        }
+        right();
     }
     if (event.key == "ArrowDown"){
         event.preventDefault();
-        index = positions.indexOf(coposition[0])-5;
-        if (index>=0){
-            temp = corres[index].className.split(" ");
-            temp.push(coposition[0]);
-            coposition[0] = temp.splice(2,2).join(" ");
-            corres[index].className = temp.join(" ");
-            corres[index+5] = corres[index];
-            corres[index] = null;
-        }
+        down();
     }
     if (event.key == "ArrowRight"){
         event.preventDefault();
-        index = positions.indexOf(coposition[0])-1;
-        if (index<=positions.length && (index+1)%5!=0){
-            temp = corres[index].className.split(" ");
-            temp.push(coposition[0]);
-            coposition[0] = temp.splice(2,2).join(" ");
-            corres[index].className = temp.join(" ");
-            corres[index+1] = corres[index];
-            corres[index] = null;
-        }
+        right();
     }
     if (event.key == "ArrowLeft"){
         event.preventDefault();
-        index = positions.indexOf(coposition[0])+1;
-        if (index>=0 && index%5!=0){
-            temp = corres[index].className.split(" ");
-            temp.push(coposition[0]);
-            coposition[0] = temp.splice(2,2).join(" ");
-            corres[index].className = temp.join(" ");
-            corres[index-1] = corres[index];
-            corres[index] = null;
-        }
+        left();
     }
     if (event.key == "Enter"){
-        clearInterval(timer);
-        document.removeEventListener("keydown",game,false);
-        compare = [6,7,8,11,12,13,16,17,18];
-        point = 0;
-        result.style.setProperty("visibility","visible");
-        document.getElementById("output").textContent = "Error";
-        resume.style.setProperty("visibility","visible");
-        for (let i = 0;i<9;i++){
-            color = corres[compare[i]].className.split(" ")[0];
-            refcolor = refblocks[i].className.split(" ")[0];
-            if (color == refcolor){
-                point++;
-            }
-        }
-        if (point==9){
-            document.getElementById("output").textContent = "You Win!";
-            resume.style.setProperty("visibility","hidden");
-            if (count<high){
-                high = count.toFixed(1);
-                record.textContent = "personal record: "+String(high)+"s";
-            }
-        }
-        else{
-            document.getElementById("output").textContent = "You Failed";
-            resume.style.setProperty("visibility","hidden");
-        }
+        enter();
     }
 }
