@@ -19,6 +19,7 @@ button{
     font-size:large;
     border-radius:10px;
     position:absolute;
+    cursor:pointer;
 }
 #submit{
     width:100px;
