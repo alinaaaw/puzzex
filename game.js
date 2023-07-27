@@ -53,6 +53,11 @@ function stop(){
     result.style.setProperty("visibility","visible");
     resume.style.setProperty("visibility","visible");
     document.removeEventListener("keydown",game,false);
+    upBt.removeEventListener("click",up,false);
+    downBt.removeEventListener("click",down,false);
+    leftBt.removeEventListener("click",left,false);
+    rightBt.removeEventListener("click",right,false);
+    enterBt.removeEventListener("click",enter,false);
     document.getElementById("output").textContent = "Paused";
     clearInterval(timer);
 }
@@ -136,6 +141,11 @@ function right(){
 function enter(){
     clearInterval(timer);
     document.removeEventListener("keydown",game,false);
+    upBt.removeEventListener("click",up,false);
+    downBt.removeEventListener("click",down,false);
+    leftBt.removeEventListener("click",left,false);
+    rightBt.removeEventListener("click",right,false);
+    enterBt.removeEventListener("click",enter,false);
     compare = [6,7,8,11,12,13,16,17,18];
     point = 0;
     result.style.setProperty("visibility","visible");
