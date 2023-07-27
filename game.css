@@ -1,7 +1,7 @@
 .block{
-    width:70px;
-    height:70px;
-    border:solid black 1.5px;
+    width:60px;
+    height:60px;
+    border:solid black 1px;
     position:absolute;
 }
 .refblock{
@@ -26,8 +26,8 @@ button{
 }
 #arrows{
     position:absolute;
-    top:505px;
-    left:57%;
+    top:445px;
+    left:53%;
 }
 #up{
     left:45px;
@@ -46,7 +46,7 @@ button{
 #leftright{
     width:115px;
     margin:auto;
-    padding-left:300px;
+    padding-left:230px;
     margin-bottom:10px;
 }
 #pause{
@@ -62,7 +62,7 @@ button{
 }
 #count{
     width:fit-content;
-    font-size:28px;
+    font-size:23px;
     margin:auto;
 }
 #time{
@@ -155,8 +155,8 @@ button{
     background-color:green;
 }
 #box{
-    width:375px;
-    height:375px;
+    width:320px;
+    height:320px;
     background-color:black;
     position:relative;
     top:20px;
@@ -166,31 +166,31 @@ button{
     top:5px;
 }
 .row2{
-    top:78px;
+    top:67px;
 }
 .row3{
-    top:151px;
+    top:129px;
 }
 .row4{
-    top:224px;
+    top:191px;
 }
 .row5{
-    top:297px;
+    top:253px;
 }
 .col1{
     left:5px;
 }
 .col2{
-    left:78px;
+    left:67px;
 }
 .col3{
-    left:151px;
+    left:129px;
 }
 .col4{
-    left:224px;
+    left:191px;
 }
 .col5{
-    left:297px;
+    left:253px;
 }
 #reference{
     background-color:black;
@@ -203,8 +203,8 @@ button{
     "r3c1 r3c2 r3c3";
     padding:3px;
     position:absolute;
-    right:60%;
-    top:510px;
+    right:54%;
+    top:450px;
 }
 #r1c1{
     grid-area:r1c1;
@@ -242,6 +242,12 @@ button{
         position:absolute;
         top:350px;
         right:77%;
+    }
+    #leftright{
+        padding-left:300px;
+    }
+    #count{
+        font-size:28px;
     }
     #arrows{
         top:350px;
