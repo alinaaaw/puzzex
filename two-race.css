@@ -1,7 +1,7 @@
 body{touch-action: manipulation;}
 .block{
-    width:50px;
-    height:50px;
+    width:45px;
+    height:45px;
     border:solid black 1px;
     position:absolute;
 }
@@ -20,8 +20,8 @@ body{touch-action: manipulation;}
     margin-right:5px;
 }
 button{
-    width:50px;
-    height:50px;
+    width:40px;
+    height:40px;
     padding:3px;
     background-color:rgb(183, 183, 183);
     color:white;
@@ -31,53 +31,53 @@ button{
     cursor:pointer;
 }
 #submit1{
-    width:100px;
-    top:120px;
-    left:30px;
+    width:80px;
+    top:95px;
+    left:25px;
 }
 #submit2{
-    width:100px;
-    top:120px;
-    left:30px;
+    width:80px;
+    top:95px;
+    left:25px;
 }
 #arrows1{
     position:absolute;
     top:200px;
-    left:35%;
+    left:36%;
     transform:rotate(180deg);
 }
 #arrows2{
     position:absolute;
     top:520px;
-    right:35%;
+    right:36%;
 }
 #up1{
-    left:55px;
+    left:45px;
 }
 #down1{
-    left:55px;
-    top:55px
+    left:45px;
+    top:45px
 }
 #left1{
-    top:55px;
+    top:45px;
 }
 #right1{
-    top:55px;
-    left:110px
+    top:45px;
+    left:90px
 }
 #up2{
-    left:55px;
+    left:45px;
 }
 #down2{
-    left:55px;
-    top:55px
+    left:45px;
+    top:45px
 }
 #left2{
-    top:55px;
+    top:45px;
 }
 #right2{
-    top:55px;
-    left:110px
+    top:45px;
+    left:90px
 }
 #leftright{
     width:210px;
@@ -199,52 +199,52 @@ button{
     background-color:green;
 }
 #box1{
-    width:270px;
-    height:270px;
+    width:245px;
+    height:245px;
     background-color:black;
     position:absolute;
     top:10px;
-    left:38%;
+    left:39%;
     transform:rotate(180deg);
 }
 #box2{
-    width:270px;
-    height:270px;
+    width:245px;
+    height:245px;
     background-color:black;
     position:absolute;
     bottom:10px;
-    right:38%;
+    right:39%;
 
 }
 .row1{
     top:5px;
 }
 .row2{
-    top:57px;
+    top:52px;
 }
 .row3{
-    top:109px;
+    top:99px;
 }
 .row4{
-    top:161px;
+    top:146px;
 }
 .row5{
-    top:213px;
+    top:193px;
 }
 .col1{
     left:5px;
 }
 .col2{
-    left:57px;
+    left:52px;
 }
 .col3{
-    left:109px;
+    left:99px;
 }
 .col4{
-    left:161px;
+    left:146px;
 }
 .col5{
-    left:213px;
+    left:193px;
 }
 #reference{
     background-color:black;
@@ -327,6 +327,11 @@ button{
         display:block;
         right:0px;
     }
+    #button{
+        width:50px;
+        height:50px;
+        position:absolute;
+    }
     #arrows1{
         top:530px;
         left:10%;
@@ -335,6 +340,44 @@ button{
     #arrows2{
         top:530px;
         right:21%;
+    }
+    #submit1{
+        width:100px;
+        top:120px;
+        left:30px;
+    }
+    #submit2{
+        width:100px;
+        top:120px;
+        left:30px;
+    }
+    #up1{
+        left:55px;
+    }
+    #down1{
+        left:55px;
+        top:55px
+    }
+    #left1{
+        top:55px;
+    }
+    #right1{
+        top:55px;
+        left:110px
+    }
+    #up2{
+        left:55px;
+    }
+    #down2{
+        left:55px;
+        top:55px
+    }
+    #left2{
+        top:55px;
+    }
+    #right2{
+        top:55px;
+        left:110px
     }
     #result{
         margin:auto;
