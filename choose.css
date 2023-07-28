@@ -1,0 +1,28 @@
+#one{
+    font-size:50px;
+    padding:10px;
+    background-color:rgb(182, 241, 189);
+    border:rgb(140, 214, 149) 3px solid;
+    border-radius:10px;
+    width:fit-content;
+    cursor:pointer;
+    position:relative;
+    top:300px;
+    margin:auto;
+}
+#two{
+    font-size:50px;
+    padding:10px;
+    background-color:rgb(182, 241, 189);
+    border:rgb(140, 214, 149) 3px solid;
+    border-radius:10px;
+    width:fit-content;
+    cursor:pointer;
+    position:relative;
+    top:350px;
+    margin:auto;
+}
+a{
+    color:rgb(152, 152, 152);
+    text-decoration:none;
+}
