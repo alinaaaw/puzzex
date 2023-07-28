@@ -1,7 +1,7 @@
 body{touch-action: manipulation;}
 .block{
-    width:60px;
-    height:60px;
+    width:50px;
+    height:50px;
     border:solid black 1px;
     position:absolute;
 }
@@ -42,11 +42,14 @@ button{
 }
 #arrows1{
     position:absolute;
-    top:550px;
+    top:200px;
+    left:35%;
+    transform:rotate(180deg);
 }
 #arrows2{
     position:absolute;
-    top:550px;
+    top:520px;
+    right:35%;
 }
 #up1{
     left:55px;
@@ -78,9 +81,11 @@ button{
 }
 #leftright{
     width:210px;
-    margin:auto;
     padding-left:120px;
-    margin-bottom:10px;
+    transform:rotate(90deg);
+    position:absolute;
+    right:-95px;
+    top:44%
 }
 #pause{
     padding:5px;
@@ -96,7 +101,11 @@ button{
 #count{
     width:fit-content;
     font-size:20px;
-    margin:auto;
+    transform:rotate(90deg);
+    position:absolute;
+    right:-105px;
+    top:47%;
+    display:inline-block;
 }
 #time{
     margin-left:30px;
@@ -118,8 +127,9 @@ button{
     border:solid black 2px;
     margin:auto;
     position:relative;
-    bottom:30px;
+    bottom:-125px;
     z-index:1;
+    transform:rotate(90deg);
 }
 #cancel{
     width:20px;
@@ -189,48 +199,52 @@ button{
     background-color:green;
 }
 #box1{
-    width:320px;
-    height:320px;
+    width:270px;
+    height:270px;
     background-color:black;
     position:absolute;
-    left:10%;
+    top:10px;
+    left:38%;
+    transform:rotate(180deg);
 }
 #box2{
-    width:320px;
-    height:320px;
+    width:270px;
+    height:270px;
     background-color:black;
     position:absolute;
-    right:10%;
+    bottom:10px;
+    right:38%;
+
 }
 .row1{
     top:5px;
 }
 .row2{
-    top:67px;
+    top:57px;
 }
 .row3{
-    top:129px;
+    top:109px;
 }
 .row4{
-    top:191px;
+    top:161px;
 }
 .row5{
-    top:253px;
+    top:213px;
 }
 .col1{
     left:5px;
 }
 .col2{
-    left:67px;
+    left:57px;
 }
 .col3{
-    left:129px;
+    left:109px;
 }
 .col4{
-    left:191px;
+    left:161px;
 }
 .col5{
-    left:253px;
+    left:213px;
 }
 #reference{
     background-color:black;
@@ -242,8 +256,9 @@ button{
     "r2c1 r2c2 r2c3"
     "r3c1 r3c2 r3c3";
     padding:3px;
-    position:absolute;
-    top:480px;
+    position:relative;
+    top:288px;
+    margin:auto;
 }
 #r1c1{
     grid-area:r1c1;
@@ -274,35 +289,58 @@ button{
 }
 @media(min-width: 1030px){
     #box1{
+        position:absolute;
         top:100px;
         width:395px;
         height:395px;
         left:5%;
+        transform:rotate(0deg);
     }
     #box2{
+        position:absolute;
         top:100px;
         width:395px;
         height:395px;
         right:5%;
+        bottom:0px;
     }
     #reference{
         position:relative;
         top:160px;
         margin:auto;
+        left:0px;
     }
     #leftright{
         padding-left:220px;
+        width:210px;
+        margin:auto;
+        margin-bottom:10px;
+        transform:rotate(0deg);
+        position:relative;
     }
     #count{
+        position:relative;
         font-size:28px;
+        width:fit-content;
+        margin:auto;
+        transform:rotate(0deg);
+        display:block;
+        right:0px;
     }
     #arrows1{
         top:530px;
         left:10%;
+        transform:rotate(0deg);
     }
     #arrows2{
         top:530px;
-        right:20%;
+        right:21%;
+    }
+    #result{
+        margin:auto;
+        position:relative;
+        bottom:30px;
+        transform:rotate(0deg);
     }
     .block{
         width:75px;

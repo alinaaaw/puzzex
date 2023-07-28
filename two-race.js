@@ -116,6 +116,11 @@ function stop(){
     leftBt1.removeEventListener("click",left1,false);
     rightBt1.removeEventListener("click",right1,false);
     enterBt1.removeEventListener("click",enter1,false);
+    upBt2.removeEventListener("click",up,false);
+    downBt2.removeEventListener("click",down,false);
+    leftBt2.removeEventListener("click",left,false);
+    rightBt2.removeEventListener("click",right,false);
+    enterBt2.removeEventListener("click",enter2,false);
     document.getElementById("output").textContent = "Paused";
     clearInterval(timer);
 }
@@ -267,12 +272,20 @@ function enter(player){
     leftBt1.removeEventListener("click",left1,false);
     rightBt1.removeEventListener("click",right1,false);
     enterBt1.removeEventListener("click",enter1,false);
+    upBt2.removeEventListener("click",up,false);
+    downBt2.removeEventListener("click",down,false);
+    leftBt2.removeEventListener("click",left,false);
+    rightBt2.removeEventListener("click",right,false);
+    enterBt2.removeEventListener("click",enter2,false);
     compare = [6,7,8,11,12,13,16,17,18];
     result.style.setProperty("visibility","visible");
     document.getElementById("output").textContent = "Error";
     resume.style.setProperty("visibility","visible");
     if (player==1){
         point = 0;
+        if (window.innerWidth<1030){
+            compare = compare.reverse();
+        }
         for (let i = 0;i<9;i++){
             color = corres1[compare[i]].className.split(" ")[0];
             refcolor = refblocks[i].className.split(" ")[0];
@@ -320,18 +333,26 @@ function enter(player){
     else{
         point1 = 0;
         point2 = 0;
-        for (let i = 0;i<9;i++){
-            color = corres1[compare[i]].className.split(" ")[0];
-            refcolor = refblocks[i].className.split(" ")[0];
-            if (color == refcolor){
-                point1++;
-            }
+        if (window.innerWidth<1030){
+            compare = compare.reverse();
         }
         for (let i = 0;i<9;i++){
-            color = corres2[compare[i]].className.split(" ")[0];
-            refcolor = refblocks[i].className.split(" ")[0];
-            if (color == refcolor){
-                point2++;
+            if (typeof(corres1[compare[i]])!='string'){
+                color = corres1[compare[i]].className.split(" ")[0];
+                refcolor = refblocks[i].className.split(" ")[0];
+                if (color == refcolor){
+                    point1++;
+                }
+            }
+        }
+        compare = [6,7,8,11,12,13,16,17,18];
+        for (let i = 0;i<9;i++){
+            if (typeof(corres2[compare[i]])!='string'){
+                color = corres2[compare[i]].className.split(" ")[0];
+                refcolor = refblocks[i].className.split(" ")[0];
+                if (color == refcolor){
+                    point2++;
+                }
             }
         }
         if (point1==9){
