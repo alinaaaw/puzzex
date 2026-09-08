@@ -4,12 +4,114 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <meta name="description" content="Puzzex is a fast, colorful sliding-tile puzzle for one or two local players.">
+    <title>Puzzex | Sliding Tile Puzzle</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div id="play">
-        <a href="choose.html">PLAY</a>
+    <div class="background-tiles" aria-hidden="true">
+        <span class="background-tile tile-red"></span>
+        <span class="background-tile tile-blue"></span>
+        <span class="background-tile tile-yellow"></span>
+        <span class="background-tile tile-green"></span>
     </div>
+
+    <header class="site-header">
+        <a class="brand" href="index.html" aria-label="Puzzex home">
+            <span class="brand-mark" aria-hidden="true">
+                <span class="tile-red"></span>
+                <span class="tile-yellow"></span>
+                <span class="tile-blue"></span>
+                <span class="tile-green"></span>
+            </span>
+            <span>PUZZEX</span>
+        </a>
+        <span class="header-label">Sliding color puzzle</span>
+    </header>
+
+    <main class="hero">
+        <section class="hero-copy" aria-labelledby="game-title">
+            <p class="eyebrow"><span></span> Think fast. Slide smart.</p>
+            <h1 id="game-title">Match the pattern.<br><em>Beat the clock.</em></h1>
+            <p class="intro">Slide colorful tiles across a 5×5 board and recreate the target in the center. Play solo for a personal best or race a friend on the same device.</p>
+
+            <div class="hero-actions">
+                <a class="primary-button" href="choose.html">
+                    Choose a mode
+                    <span aria-hidden="true">→</span>
+                </a>
+                <a class="text-link" href="#how-to-play">How it works</a>
+            </div>
+
+            <ul class="feature-list" aria-label="Game features">
+                <li><strong>1–2</strong> players</li>
+                <li><strong>0</strong> downloads</li>
+                <li><strong>6</strong> colors</li>
+            </ul>
+        </section>
+
+        <section class="game-preview" aria-label="Preview of a colorful Puzzex game board">
+            <div class="preview-heading">
+                <div>
+                    <span class="preview-label">Puzzle preview</span>
+                    <strong>Find the match</strong>
+                </div>
+                <span class="live-dot">Ready</span>
+            </div>
+
+            <div class="preview-content">
+                <div class="puzzle-board" aria-hidden="true">
+                    <span class="tile-red"></span><span class="tile-blue"></span><span class="tile-green"></span><span class="tile-white"></span><span class="tile-orange"></span>
+                    <span class="tile-yellow"></span><span class="tile-green"></span><span class="tile-red center-tile"></span><span class="tile-orange center-tile"></span><span class="tile-blue"></span>
+                    <span class="tile-blue"></span><span class="tile-white center-tile"></span><span class="tile-yellow center-tile"></span><span class="tile-green center-tile"></span><span class="tile-red"></span>
+                    <span class="tile-orange"></span><span class="tile-red center-tile"></span><span class="tile-blue center-tile"></span><span class="tile-white center-tile"></span><span class="tile-yellow"></span>
+                    <span class="tile-green"></span><span class="tile-yellow"></span><span class="empty-tile"></span><span class="tile-red"></span><span class="tile-orange"></span>
+                </div>
+
+                <div class="target-panel">
+                    <span>Target</span>
+                    <div class="target-grid" aria-hidden="true">
+                        <i class="tile-red"></i><i class="tile-orange"></i><i class="tile-green"></i>
+                        <i class="tile-white"></i><i class="tile-yellow"></i><i class="tile-green"></i>
+                        <i class="tile-red"></i><i class="tile-blue"></i><i class="tile-white"></i>
+                    </div>
+                    <small>Center 3×3</small>
+                </div>
+            </div>
+
+            <div class="preview-controls" aria-hidden="true">
+                <span>Use arrow keys</span>
+                <div class="key-group">
+                    <kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="how-to-play" id="how-to-play" aria-labelledby="how-title">
+        <div class="section-heading">
+            <span>Quick start</span>
+            <h2 id="how-title">Three moves to get in the game</h2>
+        </div>
+        <ol class="steps">
+            <li>
+                <span class="step-number">01</span>
+                <div><strong>Study the target</strong><p>Read the 3×3 color pattern shown beside the board.</p></div>
+            </li>
+            <li>
+                <span class="step-number">02</span>
+                <div><strong>Slide the tiles</strong><p>Move one adjacent tile at a time into the empty space.</p></div>
+            </li>
+            <li>
+                <span class="step-number">03</span>
+                <div><strong>Submit the match</strong><p>Press Enter when the center of your board matches the target.</p></div>
+            </li>
+        </ol>
+    </section>
+
+    <footer>
+        <span>Built for quick thinking and friendly competition.</span>
+        <a href="choose.html">Start playing <span aria-hidden="true">→</span></a>
+    </footer>
 </body>
 </html>

@@ -4,15 +4,98 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Game Type</title>
+    <meta name="description" content="Choose between a solo time trial and a local two-player Puzzex race.">
+    <title>Choose a Mode | Puzzex</title>
     <link rel="stylesheet" href="choose.css">
 </head>
 <body>
-    <div id="one">
-        <a href="one-ex.html">One Player</a>
-    </div>
-    <div id="two">
-        <a href="two-race.html">Two Player</a>
-    </div>
+    <header class="site-header">
+        <a class="brand" href="index.html" aria-label="Puzzex home">
+            <span class="brand-mark" aria-hidden="true">
+                <span class="tile-red"></span>
+                <span class="tile-yellow"></span>
+                <span class="tile-blue"></span>
+                <span class="tile-green"></span>
+            </span>
+            <span>PUZZEX</span>
+        </a>
+        <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Back home</a>
+    </header>
+
+    <main>
+        <section class="mode-intro" aria-labelledby="mode-title">
+            <p class="eyebrow"><span></span> Select game mode</p>
+            <h1 id="mode-title">How do you want to play?</h1>
+            <p>Both modes use the same target-matching puzzle. Pick a focused solo challenge or share the board with a friend.</p>
+        </section>
+
+        <section class="mode-grid" aria-label="Available game modes">
+            <a class="mode-card solo-card" href="one-ex.html" aria-label="Play single-player mode">
+                <div class="card-topline">
+                    <span class="mode-number">01</span>
+                    <span class="mode-badge">Solo</span>
+                </div>
+
+                <div class="mode-visual solo-visual" aria-hidden="true">
+                    <div class="mini-board">
+                        <i class="tile-red"></i><i class="tile-yellow"></i><i class="tile-blue"></i>
+                        <i class="tile-white"></i><i class="tile-green"></i><i class="tile-orange"></i>
+                        <i class="tile-blue"></i><i class="tile-red"></i><i class="empty-tile"></i>
+                    </div>
+                    <div class="timer-visual"><span>BEST TIME</span><strong>24.8<small>s</small></strong></div>
+                </div>
+
+                <div class="card-copy">
+                    <h2>Single Player</h2>
+                    <p>Study the target, solve at your own pace, and replay to set a faster personal record.</p>
+                </div>
+
+                <div class="card-meta">
+                    <span><strong>1</strong> player</span>
+                    <span><strong>Arrows</strong> to move</span>
+                    <span class="play-label">Play solo <b aria-hidden="true">→</b></span>
+                </div>
+            </a>
+
+            <a class="mode-card versus-card" href="two-race.html" aria-label="Play local two-player mode">
+                <div class="card-topline">
+                    <span class="mode-number">02</span>
+                    <span class="mode-badge">Local versus</span>
+                </div>
+
+                <div class="mode-visual versus-visual" aria-hidden="true">
+                    <div class="player-side player-one">
+                        <span>P1</span>
+                        <div class="control-cluster"><i>W</i><i>A</i><i>S</i><i>D</i></div>
+                    </div>
+                    <strong>VS</strong>
+                    <div class="player-side player-two">
+                        <span>P2</span>
+                        <div class="control-cluster"><i>↑</i><i>←</i><i>↓</i><i>→</i></div>
+                    </div>
+                </div>
+
+                <div class="card-copy">
+                    <h2>Two Player</h2>
+                    <p>Race side by side on one device. The first player to complete the target pattern wins.</p>
+                </div>
+
+                <div class="card-meta">
+                    <span><strong>2</strong> players</span>
+                    <span><strong>Shared</strong> keyboard</span>
+                    <span class="play-label">Start a race <b aria-hidden="true">→</b></span>
+                </div>
+            </a>
+        </section>
+
+        <aside class="game-tip">
+            <span class="tip-icon" aria-hidden="true">!</span>
+            <p><strong>New to Puzzex?</strong> The arrow indicates the direction the tile moves into the empty space—not the direction of the empty space itself.</p>
+        </aside>
+    </main>
+
+    <footer>
+        <span>No downloads. No sign-up. Just pick a mode and play.</span>
+    </footer>
 </body>
 </html>
