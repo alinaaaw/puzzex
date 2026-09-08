@@ -1,51 +1,115 @@
 # Puzzle Game
 
-A browser-based **sliding tile puzzle game** inspired by a real boardgame, where the goal is to recreate a target 3×3 pattern by strategically moving tiles. The goal is to match the pattern as **quickly** as possible.
+A browser-based **sliding tile puzzle game** inspired by a physical board game. Strategically move the colored tiles to recreate a target 3×3 pattern as quickly as possible.
 
-## How to Access?
+## Play Online
 
-Open the link in broswer: https://alinaaaw.github.io/puzzex/
+**[Launch Puzzle Game](https://alinaaaw.github.io/puzzex/)**
 
-## How to Play?
+No installation or account is required. The game supports keyboard controls and on-screen buttons.
+
+## Features
+
+- Randomized boards and target patterns for a new challenge each round
+- Single-player time trials with a best-time record for the current page session
+- Local two-player races on one device
+- Pause, replay, and show/hide timer controls
+- Responsive layouts and on-screen controls for different screen sizes
+- No dependencies, build tools, or backend services
+
+## How to Play
 
 ### Objective
 
-The goal is to rearrange the tiles in the puzzle area to let the **3x3 tiles in the middle** match the **target pattern** displayed on the side. Only **one** tile can move at a time into the empty space. Completing the puzzle quickly requires **strategy**, **foresight**, and **careful observation**.
+Rearrange the tiles so that the **center 3×3 area** of the 5×5 puzzle board matches the **target pattern** displayed beside it. Only one tile can move at a time, and it must slide into the empty space. Solving the puzzle quickly requires **strategy**, **foresight**, and **careful observation**.
+
+When the center pattern matches the target, press **Enter** (or the on-screen **ENTER** button) to submit your solution.
 
 ### Controls
-**Arrow Keys**: move tiles into the empty space in the corresponding direction  
-* Example: pressing **Right** moves the tile immediately to the **left** of the empty space into the blank space  
-* Similarly, pressing Left, Up, or Down moves the adjacent tile in the **opposite** direction into the empty space
+
+In single-player mode, use the arrow keys or the on-screen directional buttons.
+
+| Input | Action |
+| --- | --- |
+| `↑` / `↓` / `←` / `→` | Slide a tile into the empty space in the selected direction |
+| `Enter` | Submit the current center pattern |
+| On-screen buttons | Move tiles or submit on touch-enabled devices |
 
 > [!NOTE]
-> The game may seem unintuitive at first because tiles always move into the empty space, **in the direction** you press.  
-> Understanding this is key to mastering the game.
+> The controls describe the direction in which the **tile moves**, not the direction in which the empty space moves. For example, pressing **Right** slides the tile immediately to the left of the empty space into the blank position.
 
 > [!TIP]
-> Imagine the colored tiles being placed in a **5x5 board**, you can only move the tiles **around the empty space**  
-> You slide the tile to the **left** of the empty space to **right** in order to move it, so you need to press the **right arrow key** to move it
+> Think of the colored tiles as pieces on a **5×5 board**. Only a tile next to the empty space can move. To move the tile on the empty space's left to the right, press the **Right Arrow** key.
 
-**Two Player Mode**:
-* Player 1: W / A / S / D keys
-* Player 2: Arrow keys
+#### Two-player controls
+
+| Player | Move | Submit |
+| --- | --- | --- |
+| Player 1 | `W` / `A` / `S` / `D` | `Enter` or Player 1's on-screen **ENTER** button |
+| Player 2 | Arrow keys | `Enter` or Player 2's on-screen **ENTER** button |
 
 ### Game Modes
-**Single Player**:  
-* Solve the puzzle on your own  
-* Fastest completion time in the session is recorded  
-* Encourages players to refine strategy and improve speed
 
-**Two Player**:  
-* compete on the same device  
-* One uses W/A/S/D and the other uses Arrow Keys  
-* First to complete the pattern --one should press enter when they finished-- wins the race
+#### Single Player
+
+- Solve the puzzle on your own.
+- Try to beat your fastest completion time during the current page session.
+- Replay randomized rounds to refine your strategy and improve your speed.
+
+#### Two Player
+
+- Compete locally on the same device using separate controls.
+- Player 1 uses `W` / `A` / `S` / `D`; Player 2 uses the arrow keys.
+- When a player finishes, press **Enter** to check both boards. The first completed pattern wins the race.
 
 ### Tips for Success
-* Start with **corner and edge** tiles, as they are easier to lock in place first
-* Use **systematic patterns** rather than random sliding
-* Work in sections: focus on one row or column at a time
-* Be **patient** — most new players take multiple attempts to understand the movement mechanics
+
+- Start with **corner and edge** tiles, as they are easier to lock in place first.
+- Use **systematic patterns** instead of moving tiles at random.
+- Work in sections by focusing on one row or column at a time.
+- Be **patient**—most new players need several attempts to become comfortable with the movement mechanics.
+
+## Run Locally
+
+This is a static web project, so there are no packages to install or build steps to run.
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/alinaaaw/puzzex.git
+   cd puzzex
+   ```
+
+2. Start a local web server. For example, with Python 3:
+
+   ```bash
+   python -m http.server 8000
+   ```
+
+3. Open <http://localhost:8000> in a modern browser.
+
+You can also open `index.html` directly, although a local server more closely matches the deployed environment.
+
+## Project Structure
+
+```text
+puzzex/
+├── index.html       # Landing page
+├── choose.html      # Game-mode selection
+├── one-ex.html      # Single-player interface
+├── one-ex.js        # Single-player game logic
+├── one-ex.css       # Single-player styles
+├── two-race.html    # Two-player interface
+├── two-race.js      # Two-player game logic
+├── two-race.css     # Two-player styles
+├── index.css        # Landing-page styles
+└── choose.css       # Mode-selection styles
+```
 
 ## Notes on Development
 
-Developed with HTML, CSS, JavaScript
+Built with **HTML5**, responsive **CSS3**, and vanilla **JavaScript**. The project intentionally has no runtime dependencies or compilation step, making it easy to host on any static site service. The live version is deployed with GitHub Pages.
+
+## License
+
+No license file is currently included in this repository. Unless a license is added, the repository's source code remains under the copyright holder's default rights.
