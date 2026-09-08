@@ -1,57 +1,57 @@
 const tutorial = document.getElementById("tutorial");
 
 if (tutorial) {
+    const initialBoard = [
+        "blue", "orange", "red", "white", "yellow",
+        "green", "yellow", "green", "orange", "white",
+        "red", "blue", null, "green", "yellow",
+        "yellow", "blue", "yellow", "red", "white",
+        "orange", "green", "red", "blue", "yellow"
+    ];
+    const targetPattern = [
+        "green", "red", "orange",
+        "yellow", "blue", "green",
+        "blue", "yellow", "red"
+    ];
+    const centerIndices = [6, 7, 8, 11, 12, 13, 16, 17, 18];
+    const solution = [
+        { direction: "right", symbol: "→", color: "blue", targetIndex: 4 },
+        { direction: "down", symbol: "↓", color: "yellow", targetIndex: 3 },
+        { direction: "left", symbol: "←", color: "green", targetIndex: 0 },
+        { direction: "down", symbol: "↓", color: "red", targetIndex: 1 }
+    ];
+
+    const cells = [...tutorial.querySelectorAll("[data-cell]")];
+    const targetCells = [...tutorial.querySelectorAll("[data-target-cell]")];
     const title = tutorial.querySelector("[data-tutorial-title]");
     const description = tutorial.querySelector("[data-tutorial-description]");
     const stepLabel = tutorial.querySelector("[data-tutorial-step]");
     const feedback = tutorial.querySelector("[data-tutorial-feedback]");
     const actionButton = tutorial.querySelector("[data-tutorial-action]");
     const demoButton = tutorial.querySelector("[data-watch-demo]");
+    const resetButton = tutorial.querySelector("[data-reset-tutorial]");
     const submitButton = tutorial.querySelector("[data-submit]");
     const practiceBadge = tutorial.querySelector(".practice-badge");
+    const boardTitle = tutorial.querySelector(".tutorial-stage-heading strong");
+    const moveCount = tutorial.querySelector("[data-move-count]");
+    const matchCount = tutorial.querySelector("[data-match-count]");
+    const targetLabel = tutorial.querySelector("[data-target-label]");
     const directionButtons = [...tutorial.querySelectorAll("[data-direction]")];
     const progressItems = [...tutorial.querySelectorAll("[data-progress]")];
-    const moveTile = tutorial.querySelector("[data-move-tile]");
-    const destination = tutorial.querySelector("[data-destination]");
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    const copy = {
-        1: {
-            label: "Step 1 of 3",
-            title: "Read the target",
-            description: "Compare the target with the outlined center of the board. The first center square needs a red tile.",
-            feedback: "The empty square marks where the next tile can slide.",
-            action: "Start practice"
-        },
-        2: {
-            label: "Step 2 of 3",
-            title: "Move the red tile right",
-            description: "The red tile is directly left of the empty square. Choose Right because the direction describes how the tile moves.",
-            feedback: "Try the direction buttons or use your keyboard arrows.",
-            action: "Show the move"
-        },
-        3: {
-            label: "Step 3 of 3",
-            title: "Submit the match",
-            description: "The outlined center now matches the target. Submit it just as you would in the real game.",
-            feedback: "Press Enter on your keyboard or use the button below.",
-            action: "Submit match"
-        },
-        complete: {
-            label: "Practice complete",
-            title: "You solved it!",
-            description: "You moved the tile—not the empty space—and completed the target pattern.",
-            feedback: "You are ready for a full randomized board.",
-            action: "Choose a mode"
-        }
-    };
-
+    let board = initialBoard.slice();
     let currentStep = 1;
+    let solutionIndex = 0;
     let isMoving = false;
     let demoRun = 0;
 
     function wait(milliseconds) {
         return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
+    }
+
+    function setActionLabel(label) {
+        actionButton.firstChild.textContent = `${label} `;
     }
 
     function cancelDemo() {
@@ -60,115 +60,211 @@ if (tutorial) {
         demoButton.innerHTML = '<span aria-hidden="true">▶</span> Watch demo';
     }
 
-    function updateTutorial(step) {
-        currentStep = step;
-        const content = copy[step];
+    function getMove(direction) {
+        const emptyIndex = board.indexOf(null);
+        const row = Math.floor(emptyIndex / 5);
+        const column = emptyIndex % 5;
+        let sourceIndex = -1;
+
+        if (direction === "right" && column > 0) sourceIndex = emptyIndex - 1;
+        if (direction === "left" && column < 4) sourceIndex = emptyIndex + 1;
+        if (direction === "down" && row > 0) sourceIndex = emptyIndex - 5;
+        if (direction === "up" && row < 4) sourceIndex = emptyIndex + 5;
+
+        return sourceIndex < 0 ? null : { sourceIndex, emptyIndex };
+    }
+
+    function matchesTarget() {
+        return centerIndices.every((boardIndex, patternIndex) => (
+            board[boardIndex] === targetPattern[patternIndex]
+        ));
+    }
+
+    function renderBoard() {
+        cells.forEach((cell, index) => {
+            const color = board[index];
+            const classes = [color ? `tile-${color}` : "empty-tile"];
+            if (centerIndices.includes(index)) classes.push("goal-cell");
+            cell.className = classes.join(" ");
+        });
+
+        moveCount.textContent = String(solutionIndex);
+        tutorial.setAttribute(
+            "aria-label",
+            `Interactive tutorial. Step ${currentStep}. ${solutionIndex} of ${solution.length} puzzle moves complete.`
+        );
+
+        if (currentStep === 2 && solutionIndex < solution.length) {
+            const suggestedMove = getMove(solution[solutionIndex].direction);
+            if (suggestedMove) {
+                cells[suggestedMove.sourceIndex].classList.add("suggested-tile");
+                cells[suggestedMove.emptyIndex].classList.add("destination-cell");
+            }
+        }
+
+        directionButtons.forEach((button) => {
+            const isSuggested = currentStep === 2
+                && solutionIndex < solution.length
+                && button.dataset.direction === solution[solutionIndex].direction;
+            button.classList.toggle("is-suggested", isSuggested);
+        });
+
+        let matchedCells = 0;
+        targetCells.forEach((cell, patternIndex) => {
+            const isMatched = board[centerIndices[patternIndex]] === targetPattern[patternIndex];
+            const isTarget = currentStep === 2
+                && solutionIndex < solution.length
+                && solution[solutionIndex].targetIndex === patternIndex;
+            cell.classList.toggle("is-matched", isMatched);
+            cell.classList.toggle("target-focus", isTarget);
+            if (isMatched) matchedCells += 1;
+        });
+        matchCount.textContent = `${matchedCells} / 9`;
+
+        if (currentStep === 2 && solutionIndex < solution.length) {
+            targetLabel.textContent = `${solution[solutionIndex].color} goes here`;
+        } else if (matchedCells === 9) {
+            targetLabel.textContent = "Target complete";
+        } else {
+            targetLabel.textContent = "Copy this target";
+        }
+    }
+
+    function updateProgress(step) {
         const numericStep = step === "complete" ? 4 : step;
-
-        tutorial.dataset.step = String(step);
-        stepLabel.textContent = content.label;
-        title.textContent = content.title;
-        description.textContent = content.description;
-        feedback.textContent = content.feedback;
-        actionButton.firstChild.textContent = `${content.action} `;
-        practiceBadge.textContent = step === "complete" ? "Complete" : "Practice";
-
         progressItems.forEach((item) => {
             const itemStep = Number(item.dataset.progress);
-            item.classList.toggle("is-active", itemStep === numericStep);
+            const isCurrent = itemStep === numericStep;
+            item.classList.toggle("is-active", isCurrent);
             item.classList.toggle("is-complete", itemStep < numericStep);
+            if (isCurrent) item.setAttribute("aria-current", "step");
+            else item.removeAttribute("aria-current");
         });
+    }
+
+    function updateSolvePrompt() {
+        const nextMove = solution[solutionIndex];
+        stepLabel.textContent = `Solve · Move ${solutionIndex + 1} of ${solution.length}`;
+        title.textContent = `Move ${solutionIndex + 1}: send ${nextMove.color} to its target`;
+        description.textContent = `Follow 1 → 2 → 3: move the highlighted ${nextMove.color} tile ${nextMove.direction} into the outlined empty square. That fixes the matching square highlighted in the target.`;
+        feedback.textContent = `Press ${nextMove.symbol}. Arrows describe the tile's movement; the empty space shifts the opposite way.`;
+        setActionLabel("Show next move");
+    }
+
+    function updateTutorial(step) {
+        currentStep = step;
+        tutorial.dataset.step = String(step);
+        updateProgress(step);
 
         directionButtons.forEach((button) => {
             button.disabled = step !== 2;
         });
         submitButton.disabled = step !== 3;
 
-        if (step === 2) {
+        if (step === 1) {
+            stepLabel.textContent = "Step 1 of 3 · Goal";
+            title.textContent = "Goal: match the center 3×3";
+            description.textContent = "Compare the nine outlined board squares with the target card. Green-outlined target squares already match; the other four still need the correct colors.";
+            feedback.textContent = "Your goal is 9 / 9 matched. Tiles outside the outline can be moved into the center through the empty space.";
+            setActionLabel("Start mini puzzle");
+            boardTitle.textContent = "Match the outlined 3×3";
+            practiceBadge.textContent = "Practice";
+        } else if (step === 2) {
+            updateSolvePrompt();
+            boardTitle.textContent = "Solve the four-move pattern";
+            practiceBadge.textContent = "In progress";
             tutorial.focus({ preventScroll: true });
+        } else if (step === 3) {
+            stepLabel.textContent = "Step 3 of 3 · Submit";
+            title.textContent = "The center matches—submit it";
+            description.textContent = "All nine outlined colors now match the target. In the full game, the puzzle only ends after you submit the pattern.";
+            feedback.textContent = "Press Enter on your keyboard or use the Enter button below.";
+            setActionLabel("Submit match");
+            boardTitle.textContent = "Target pattern complete";
+            practiceBadge.textContent = "Matched";
+        } else {
+            stepLabel.textContent = "Tutorial complete";
+            title.textContent = "That is the complete game loop";
+            description.textContent = "Read the target, slide neighboring tiles through the empty space, match the center 3×3, and submit your solution.";
+            feedback.textContent = "Now try a randomized board on your own or race a friend.";
+            setActionLabel("Choose a mode");
+            boardTitle.textContent = "Mini puzzle complete";
+            practiceBadge.textContent = "Complete";
         }
+
+        renderBoard();
     }
 
     function resetBoard() {
+        board = initialBoard.slice();
+        solutionIndex = 0;
         isMoving = false;
         tutorial.classList.remove("is-solved", "is-shaking");
-        moveTile.className = "tile-red move-tile";
-        destination.className = "empty-tile goal-cell";
     }
 
-    function resetTutorial(cancelPlayback = true) {
-        if (cancelPlayback) {
-            cancelDemo();
-        } else {
-            demoRun += 1;
-        }
+    function resetTutorial(showGoal = true, cancelPlayback = true) {
+        if (cancelPlayback) cancelDemo();
+        else demoRun += 1;
         resetBoard();
-        updateTutorial(1);
+        updateTutorial(showGoal ? 1 : 2);
     }
 
-    async function makeCorrectMove(fromDemo = false) {
-        if (currentStep !== 2 || isMoving) {
+    async function makeMove(direction, fromDemo = false) {
+        if (currentStep !== 2 || isMoving) return;
+
+        const expectedMove = solution[solutionIndex];
+        if (direction !== expectedMove.direction) {
+            if (!fromDemo) cancelDemo();
+            tutorial.classList.remove("is-shaking");
+            void tutorial.offsetWidth;
+            tutorial.classList.add("is-shaking");
+            feedback.textContent = `That direction does not solve the next part of this target. Follow the highlighted tile: ${expectedMove.symbol}.`;
+            window.setTimeout(() => tutorial.classList.remove("is-shaking"), 360);
             return;
         }
 
-        if (!fromDemo) {
-            cancelDemo();
-        }
+        if (!fromDemo) cancelDemo();
+        const move = getMove(direction);
+        if (!move) return;
+
         isMoving = true;
-        feedback.textContent = "Correct—the red tile moves right into the empty square.";
-        moveTile.classList.add("is-sliding-right");
+        feedback.textContent = `Good—the ${expectedMove.color} tile moved ${direction}, while the empty space moved the opposite way.`;
+        cells[move.sourceIndex].classList.add(`is-sliding-${direction}`);
 
         await wait(reduceMotion.matches ? 30 : 430);
-        moveTile.className = "empty-tile";
-        destination.className = "tile-red goal-cell is-filled";
+        board[move.emptyIndex] = board[move.sourceIndex];
+        board[move.sourceIndex] = null;
+        solutionIndex += 1;
         isMoving = false;
-        updateTutorial(3);
-    }
 
-    function tryDirection(direction) {
-        if (currentStep !== 2 || isMoving) {
-            return;
-        }
-
-        if (direction === "right") {
-            makeCorrectMove();
-            return;
-        }
-
-        cancelDemo();
-        tutorial.classList.remove("is-shaking");
-        void tutorial.offsetWidth;
-        tutorial.classList.add("is-shaking");
-        feedback.textContent = "Almost. That would move a different tile—try Right →.";
-        window.setTimeout(() => tutorial.classList.remove("is-shaking"), 360);
+        if (matchesTarget()) updateTutorial(3);
+        else updateTutorial(2);
     }
 
     function submitMatch(fromDemo = false) {
-        if (currentStep !== 3) {
-            return;
-        }
-        if (!fromDemo) {
-            cancelDemo();
-        }
+        if (currentStep !== 3) return;
+        if (!fromDemo) cancelDemo();
         updateTutorial("complete");
         tutorial.classList.add("is-solved");
     }
 
     async function watchDemo() {
-        resetTutorial(false);
+        resetTutorial(true, false);
         const thisRun = demoRun;
         demoButton.disabled = true;
         demoButton.textContent = "Playing demo…";
 
-        await wait(reduceMotion.matches ? 150 : 900);
+        await wait(reduceMotion.matches ? 120 : 900);
         if (thisRun !== demoRun) return;
         updateTutorial(2);
 
-        await wait(reduceMotion.matches ? 150 : 1200);
-        if (thisRun !== demoRun) return;
-        await makeCorrectMove(true);
+        for (const move of solution) {
+            await wait(reduceMotion.matches ? 120 : 850);
+            if (thisRun !== demoRun) return;
+            await makeMove(move.direction, true);
+        }
 
-        await wait(reduceMotion.matches ? 150 : 900);
+        await wait(reduceMotion.matches ? 120 : 850);
         if (thisRun !== demoRun) return;
         submitMatch(true);
         demoButton.disabled = false;
@@ -180,7 +276,7 @@ if (tutorial) {
             cancelDemo();
             updateTutorial(2);
         } else if (currentStep === 2) {
-            makeCorrectMove();
+            makeMove(solution[solutionIndex].direction);
         } else if (currentStep === 3) {
             submitMatch();
         } else {
@@ -189,10 +285,11 @@ if (tutorial) {
     });
 
     directionButtons.forEach((button) => {
-        button.addEventListener("click", () => tryDirection(button.dataset.direction));
+        button.addEventListener("click", () => makeMove(button.dataset.direction));
     });
 
     submitButton.addEventListener("click", () => submitMatch());
+    resetButton.addEventListener("click", () => resetTutorial(false));
     demoButton.addEventListener("click", watchDemo);
 
     tutorial.addEventListener("keydown", (event) => {
@@ -202,12 +299,12 @@ if (tutorial) {
 
         if (currentStep === 2 && direction) {
             event.preventDefault();
-            tryDirection(direction);
+            makeMove(direction);
         } else if (currentStep === 3 && event.key === "Enter") {
             event.preventDefault();
             submitMatch();
         }
     });
 
-    resetTutorial(false);
+    resetTutorial(true, false);
 }

@@ -140,6 +140,10 @@ h1 em {
     line-height: 1.75;
 }
 
+.intro strong {
+    color: var(--ink);
+}
+
 .hero-actions {
     margin-top: 34px;
     display: flex;
@@ -428,6 +432,13 @@ kbd {
     text-transform: uppercase;
 }
 
+.tutorial-target > span {
+    min-height: 2.7em;
+    display: grid;
+    place-items: center;
+    line-height: 1.35;
+}
+
 .tutorial-stage-heading strong {
     font-size: 0.95rem;
 }
@@ -472,25 +483,58 @@ kbd {
     outline-offset: -4px;
 }
 
+.tutorial-board .destination-cell {
+    outline: 3px dashed var(--blue);
+    outline-offset: -5px;
+    animation: destination-pulse 1.15s ease-in-out infinite;
+}
+
 .tutorial-board .empty-tile {
     background: #090a0c;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.85);
 }
 
-.tutorial[data-step="2"] .move-tile {
+.tutorial[data-step="2"] .suggested-tile {
     animation: tile-pulse 1.15s ease-in-out infinite;
 }
 
-.tutorial-board .is-sliding-right {
-    z-index: 3;
-    transform: translateX(calc(100% + 5px));
-    animation: none;
-    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.12), 0 10px 20px rgba(240, 68, 68, 0.35);
+.tutorial[data-step="2"] .suggested-tile::after,
+.tutorial[data-step="2"] .destination-cell::after,
+.tutorial[data-step="2"] .target-focus::after {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    z-index: 4;
+    width: 19px;
+    height: 19px;
+    display: grid;
+    place-items: center;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    color: #fff;
+    background: var(--blue);
+    box-shadow: 0 3px 8px rgba(22, 24, 29, 0.28);
+    font-family: "Nunito", sans-serif;
+    font-size: 0.62rem;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1;
 }
 
-.tutorial-board .is-filled {
-    animation: tile-land 420ms ease both;
+.tutorial[data-step="2"] .suggested-tile::after { content: "1"; }
+.tutorial[data-step="2"] .destination-cell::after { content: "2"; }
+.tutorial[data-step="2"] .target-focus::after { content: "3"; }
+
+.tutorial-board [class*="is-sliding-"] {
+    z-index: 3;
+    animation: none;
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.12), 0 10px 20px rgba(57, 120, 246, 0.32);
 }
+
+.tutorial-board .is-sliding-right { transform: translateX(calc(100% + 5px)); }
+.tutorial-board .is-sliding-left { transform: translateX(calc(-100% - 5px)); }
+.tutorial-board .is-sliding-down { transform: translateY(calc(100% + 5px)); }
+.tutorial-board .is-sliding-up { transform: translateY(calc(-100% - 5px)); }
 
 .tutorial-target {
     padding: 13px;
@@ -512,7 +556,22 @@ kbd {
 }
 
 .tutorial-target-grid i {
+    position: relative;
     border-radius: 2px;
+    transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+
+.tutorial-target-grid i.is-matched {
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.82), 0 0 0 2px var(--green);
+    opacity: 0.72;
+}
+
+.tutorial-target-grid i.target-focus {
+    z-index: 2;
+    opacity: 1;
+    transform: scale(1.14);
+    box-shadow: inset 0 0 0 2px #fff, 0 0 0 3px #fff, 0 0 0 6px var(--blue);
+    animation: target-pulse 1.15s ease-in-out infinite;
 }
 
 .tutorial-target small {
@@ -521,43 +580,56 @@ kbd {
     font-weight: 750;
 }
 
-.move-hint {
+.tutorial-target small b {
+    color: var(--green);
+    font-size: 0.7rem;
+}
+
+.tutorial-board-footer {
     min-height: 48px;
-    padding: 9px 12px;
+    padding: 10px 12px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 7px;
+    justify-content: space-between;
+    gap: 16px;
     border: 1px solid rgba(22, 24, 29, 0.09);
     border-radius: 11px;
     background: rgba(255, 255, 255, 0.62);
 }
 
-.hint-tile,
-.hint-space {
-    width: 24px;
-    height: 24px;
-    border-radius: 5px;
+.move-counter {
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
 }
 
-.hint-tile {
-    background: var(--red);
-    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.12);
+.move-counter span {
+    color: var(--muted);
+    font-size: 0.63rem;
+    font-weight: 850;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
-.hint-space {
-    background: var(--board);
+.move-counter strong {
+    font-size: 0.78rem;
 }
 
-.hint-arrow {
-    color: var(--red);
-    font-size: 1.25rem;
-    font-weight: 900;
+.move-counter b {
+    color: var(--blue);
+    font-size: 1rem;
 }
 
-.move-hint strong {
-    margin-left: 5px;
-    font-size: 0.72rem;
+.tutorial-reset {
+    padding: 6px 8px;
+    border: 0;
+    border-bottom: 1px solid currentColor;
+    color: var(--muted);
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.68rem;
+    font-weight: 800;
+    cursor: pointer;
 }
 
 .tutorial-guide {
@@ -704,7 +776,7 @@ kbd {
 .key-down { top: 48px; left: 47px; }
 .key-right { top: 48px; left: 94px; }
 
-.tutorial[data-step="2"] .key-right {
+.tutorial[data-step="2"] .tutorial-key.is-suggested {
     border-color: var(--blue);
     color: #fff;
     background: var(--blue);
@@ -782,17 +854,19 @@ kbd {
 }
 
 @keyframes tile-pulse {
-    50% { box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.12), 0 0 0 5px rgba(240, 68, 68, 0.24); }
+    50% { box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.12), 0 0 0 5px rgba(57, 120, 246, 0.26); }
+}
+
+@keyframes destination-pulse {
+    50% { outline-color: rgba(57, 120, 246, 0.35); }
+}
+
+@keyframes target-pulse {
+    50% { transform: scale(1.05); box-shadow: inset 0 0 0 2px #fff, 0 0 0 2px #fff, 0 0 0 4px var(--blue); }
 }
 
 @keyframes key-pulse {
     50% { transform: translateY(-3px); box-shadow: 0 7px 14px rgba(57, 120, 246, 0.22); }
-}
-
-@keyframes tile-land {
-    0% { transform: scale(0.82); }
-    70% { transform: scale(1.07); }
-    100% { transform: scale(1); }
 }
 
 @keyframes guide-shake {
@@ -849,7 +923,8 @@ footer a span {
 .background-tile:nth-child(3) { top: 86%; left: 11%; transform: rotate(24deg); }
 .background-tile:nth-child(4) { top: 41%; right: 2%; transform: rotate(7deg); }
 
-a:focus-visible {
+a:focus-visible,
+button:focus-visible {
     outline: 3px solid var(--blue);
     outline-offset: 5px;
     border-radius: 7px;
@@ -979,15 +1054,16 @@ a:focus-visible {
         gap: 3px;
     }
 
-    .tutorial-board .is-sliding-right {
-        transform: translateX(calc(100% + 3px));
-    }
+    .tutorial-board .is-sliding-right { transform: translateX(calc(100% + 3px)); }
+    .tutorial-board .is-sliding-left { transform: translateX(calc(-100% - 3px)); }
+    .tutorial-board .is-sliding-down { transform: translateY(calc(100% + 3px)); }
+    .tutorial-board .is-sliding-up { transform: translateY(calc(-100% - 3px)); }
 
     .tutorial-target {
         padding: 8px;
     }
 
-    .move-hint strong {
+    .move-counter span {
         display: none;
     }
 

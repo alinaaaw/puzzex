@@ -32,8 +32,8 @@
     <main class="hero">
         <section class="hero-copy" aria-labelledby="game-title">
             <p class="eyebrow"><span></span> Think fast. Slide smart.</p>
-            <h1 id="game-title">Match the pattern.<br><em>Beat the clock.</em></h1>
-            <p class="intro">Slide colorful tiles across a 5×5 board and recreate the target in the center. Play solo for a personal best or race a friend on the same device.</p>
+            <h1 id="game-title">Match the target.<br><em>Beat the clock.</em></h1>
+            <p class="intro"><strong>Your goal:</strong> make the center 3×3 area of your board exactly match the target card. Slide one neighboring tile at a time through the empty space, then submit the completed pattern.</p>
 
             <div class="hero-actions">
                 <a class="primary-button" href="choose.html">
@@ -90,61 +90,62 @@
 
     <section class="how-to-play" id="how-to-play" aria-labelledby="how-title">
         <div class="section-heading">
-            <span>Learn by doing</span>
-            <h2 id="how-title">Try one move before you play</h2>
-            <p>Follow the three-step practice round, or watch the game demonstrate it for you.</p>
+            <span>Playable tutorial</span>
+            <h2 id="how-title">First, understand the goal</h2>
+            <p>Win by making all nine outlined squares match the target. Complete this four-move mini puzzle to learn the full game loop.</p>
         </div>
 
         <div class="tutorial" id="tutorial" tabindex="-1" data-step="1">
             <div class="tutorial-stage" aria-label="Interactive example puzzle board">
                 <div class="tutorial-stage-heading">
                     <div>
-                        <span>Practice board</span>
-                        <strong>Fill the missing red tile</strong>
+                        <span>Your board · Mini puzzle</span>
+                        <strong>Match the outlined 3×3</strong>
                     </div>
                     <span class="practice-badge">Practice</span>
                 </div>
 
                 <div class="tutorial-game">
                     <div class="tutorial-board" aria-label="A 5 by 5 demonstration board">
-                        <i class="tile-blue"></i><i class="tile-orange"></i><i class="tile-white"></i><i class="tile-red"></i><i class="tile-yellow"></i>
-                        <i class="tile-green"></i><i class="tile-yellow goal-cell"></i><i class="tile-blue goal-cell"></i><i class="tile-green goal-cell"></i><i class="tile-orange"></i>
-                        <i class="tile-red move-tile" data-move-tile></i><i class="empty-tile goal-cell" data-destination></i><i class="tile-orange goal-cell"></i><i class="tile-yellow goal-cell"></i><i class="tile-blue"></i>
-                        <i class="tile-yellow"></i><i class="tile-blue goal-cell"></i><i class="tile-green goal-cell"></i><i class="tile-red goal-cell"></i><i class="tile-white"></i>
-                        <i class="tile-orange"></i><i class="tile-green"></i><i class="tile-red"></i><i class="tile-blue"></i><i class="tile-yellow"></i>
+                        <i class="tile-blue" data-cell></i><i class="tile-orange" data-cell></i><i class="tile-red" data-cell></i><i class="tile-white" data-cell></i><i class="tile-yellow" data-cell></i>
+                        <i class="tile-green" data-cell></i><i class="tile-yellow goal-cell" data-cell></i><i class="tile-green goal-cell" data-cell></i><i class="tile-orange goal-cell" data-cell></i><i class="tile-white" data-cell></i>
+                        <i class="tile-red" data-cell></i><i class="tile-blue goal-cell" data-cell></i><i class="empty-tile goal-cell" data-cell></i><i class="tile-green goal-cell" data-cell></i><i class="tile-yellow" data-cell></i>
+                        <i class="tile-yellow" data-cell></i><i class="tile-blue goal-cell" data-cell></i><i class="tile-yellow goal-cell" data-cell></i><i class="tile-red goal-cell" data-cell></i><i class="tile-white" data-cell></i>
+                        <i class="tile-orange" data-cell></i><i class="tile-green" data-cell></i><i class="tile-red" data-cell></i><i class="tile-blue" data-cell></i><i class="tile-yellow" data-cell></i>
                     </div>
 
                     <div class="tutorial-target">
-                        <span>Target</span>
+                        <span data-target-label>Copy this target</span>
                         <div class="tutorial-target-grid" aria-hidden="true">
-                            <i class="tile-yellow"></i><i class="tile-blue"></i><i class="tile-green"></i>
-                            <i class="tile-red"></i><i class="tile-orange"></i><i class="tile-yellow"></i>
-                            <i class="tile-blue"></i><i class="tile-green"></i><i class="tile-red"></i>
+                            <i class="tile-green" data-target-cell></i><i class="tile-red" data-target-cell></i><i class="tile-orange" data-target-cell></i>
+                            <i class="tile-yellow" data-target-cell></i><i class="tile-blue" data-target-cell></i><i class="tile-green" data-target-cell></i>
+                            <i class="tile-blue" data-target-cell></i><i class="tile-yellow" data-target-cell></i><i class="tile-red" data-target-cell></i>
                         </div>
-                        <small>Center 3×3</small>
+                        <small><b data-match-count>5 / 9</b> matched</small>
                     </div>
                 </div>
 
-                <div class="move-hint" aria-hidden="true">
-                    <span class="hint-tile"></span>
-                    <span class="hint-arrow">→</span>
-                    <span class="hint-space"></span>
-                    <strong>Tile moves right</strong>
+                <div class="tutorial-board-footer">
+                    <div class="move-counter" aria-live="polite">
+                        <span>Progress</span>
+                        <strong><b data-move-count>0</b> / 4 moves</strong>
+                    </div>
+                    <button class="tutorial-reset" type="button" data-reset-tutorial>Reset puzzle</button>
                 </div>
             </div>
 
             <div class="tutorial-guide">
                 <ol class="tutorial-progress" aria-label="Tutorial progress">
-                    <li class="is-active" data-progress="1"><span>1</span> Target</li>
-                    <li data-progress="2"><span>2</span> Move</li>
+                    <li class="is-active" data-progress="1"><span>1</span> Goal</li>
+                    <li data-progress="2"><span>2</span> Solve</li>
                     <li data-progress="3"><span>3</span> Submit</li>
                 </ol>
 
                 <div class="tutorial-copy">
                     <span class="tutorial-step" data-tutorial-step>Step 1 of 3</span>
-                    <h3 data-tutorial-title>Read the target</h3>
-                    <p data-tutorial-description>Compare the target with the outlined center of the board. The first center square needs a red tile.</p>
-                    <p class="tutorial-feedback" data-tutorial-feedback aria-live="polite">The empty square marks where the next tile can slide.</p>
+                    <h3 data-tutorial-title>Goal: match the center 3×3</h3>
+                    <p data-tutorial-description>Only the nine outlined squares count. Rearrange their colors until they look exactly like the target card beside the board.</p>
+                    <p class="tutorial-feedback" data-tutorial-feedback aria-live="polite">The board does not match yet. Complete the mini puzzle, then submit it to win.</p>
                 </div>
 
                 <div class="tutorial-controls" aria-label="Practice controls">
@@ -156,7 +157,7 @@
                 </div>
 
                 <div class="tutorial-actions">
-                    <button class="tutorial-primary" type="button" data-tutorial-action>Start practice <span aria-hidden="true">→</span></button>
+                    <button class="tutorial-primary" type="button" data-tutorial-action>Start mini puzzle <span aria-hidden="true">→</span></button>
                     <button class="tutorial-secondary" type="button" data-watch-demo><span aria-hidden="true">▶</span> Watch demo</button>
                 </div>
             </div>
