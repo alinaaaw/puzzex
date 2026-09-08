@@ -90,28 +90,83 @@
 
     <section class="how-to-play" id="how-to-play" aria-labelledby="how-title">
         <div class="section-heading">
-            <span>Quick start</span>
-            <h2 id="how-title">Three moves to get in the game</h2>
+            <span>Learn by doing</span>
+            <h2 id="how-title">Try one move before you play</h2>
+            <p>Follow the three-step practice round, or watch the game demonstrate it for you.</p>
         </div>
-        <ol class="steps">
-            <li>
-                <span class="step-number">01</span>
-                <div><strong>Study the target</strong><p>Read the 3×3 color pattern shown beside the board.</p></div>
-            </li>
-            <li>
-                <span class="step-number">02</span>
-                <div><strong>Slide the tiles</strong><p>Move one adjacent tile at a time into the empty space.</p></div>
-            </li>
-            <li>
-                <span class="step-number">03</span>
-                <div><strong>Submit the match</strong><p>Press Enter when the center of your board matches the target.</p></div>
-            </li>
-        </ol>
+
+        <div class="tutorial" id="tutorial" tabindex="-1" data-step="1">
+            <div class="tutorial-stage" aria-label="Interactive example puzzle board">
+                <div class="tutorial-stage-heading">
+                    <div>
+                        <span>Practice board</span>
+                        <strong>Fill the missing red tile</strong>
+                    </div>
+                    <span class="practice-badge">Practice</span>
+                </div>
+
+                <div class="tutorial-game">
+                    <div class="tutorial-board" aria-label="A 5 by 5 demonstration board">
+                        <i class="tile-blue"></i><i class="tile-orange"></i><i class="tile-white"></i><i class="tile-red"></i><i class="tile-yellow"></i>
+                        <i class="tile-green"></i><i class="tile-yellow goal-cell"></i><i class="tile-blue goal-cell"></i><i class="tile-green goal-cell"></i><i class="tile-orange"></i>
+                        <i class="tile-red move-tile" data-move-tile></i><i class="empty-tile goal-cell" data-destination></i><i class="tile-orange goal-cell"></i><i class="tile-yellow goal-cell"></i><i class="tile-blue"></i>
+                        <i class="tile-yellow"></i><i class="tile-blue goal-cell"></i><i class="tile-green goal-cell"></i><i class="tile-red goal-cell"></i><i class="tile-white"></i>
+                        <i class="tile-orange"></i><i class="tile-green"></i><i class="tile-red"></i><i class="tile-blue"></i><i class="tile-yellow"></i>
+                    </div>
+
+                    <div class="tutorial-target">
+                        <span>Target</span>
+                        <div class="tutorial-target-grid" aria-hidden="true">
+                            <i class="tile-yellow"></i><i class="tile-blue"></i><i class="tile-green"></i>
+                            <i class="tile-red"></i><i class="tile-orange"></i><i class="tile-yellow"></i>
+                            <i class="tile-blue"></i><i class="tile-green"></i><i class="tile-red"></i>
+                        </div>
+                        <small>Center 3×3</small>
+                    </div>
+                </div>
+
+                <div class="move-hint" aria-hidden="true">
+                    <span class="hint-tile"></span>
+                    <span class="hint-arrow">→</span>
+                    <span class="hint-space"></span>
+                    <strong>Tile moves right</strong>
+                </div>
+            </div>
+
+            <div class="tutorial-guide">
+                <ol class="tutorial-progress" aria-label="Tutorial progress">
+                    <li class="is-active" data-progress="1"><span>1</span> Target</li>
+                    <li data-progress="2"><span>2</span> Move</li>
+                    <li data-progress="3"><span>3</span> Submit</li>
+                </ol>
+
+                <div class="tutorial-copy">
+                    <span class="tutorial-step" data-tutorial-step>Step 1 of 3</span>
+                    <h3 data-tutorial-title>Read the target</h3>
+                    <p data-tutorial-description>Compare the target with the outlined center of the board. The first center square needs a red tile.</p>
+                    <p class="tutorial-feedback" data-tutorial-feedback aria-live="polite">The empty square marks where the next tile can slide.</p>
+                </div>
+
+                <div class="tutorial-controls" aria-label="Practice controls">
+                    <button class="tutorial-key key-up" type="button" data-direction="up" aria-label="Move a tile up">↑</button>
+                    <button class="tutorial-key key-left" type="button" data-direction="left" aria-label="Move a tile left">←</button>
+                    <button class="tutorial-key key-down" type="button" data-direction="down" aria-label="Move a tile down">↓</button>
+                    <button class="tutorial-key key-right" type="button" data-direction="right" aria-label="Move a tile right">→</button>
+                    <button class="tutorial-enter" type="button" data-submit>ENTER</button>
+                </div>
+
+                <div class="tutorial-actions">
+                    <button class="tutorial-primary" type="button" data-tutorial-action>Start practice <span aria-hidden="true">→</span></button>
+                    <button class="tutorial-secondary" type="button" data-watch-demo><span aria-hidden="true">▶</span> Watch demo</button>
+                </div>
+            </div>
+        </div>
     </section>
 
     <footer>
         <span>Built for quick thinking and friendly competition.</span>
         <a href="choose.html">Start playing <span aria-hidden="true">→</span></a>
     </footer>
+    <script src="index.js"></script>
 </body>
 </html>

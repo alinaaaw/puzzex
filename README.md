@@ -95,6 +95,7 @@ You can also open `index.html` directly, although a local server more closely ma
 ```text
 puzzex/
 ├── index.html       # Landing page
+├── index.js         # Interactive landing-page tutorial
 ├── choose.html      # Game-mode selection
 ├── one-ex.html      # Single-player interface
 ├── one-ex.js        # Single-player game logic
