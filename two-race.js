@@ -337,7 +337,7 @@ function enter(player){
             compare = compare.reverse();
         }
         for (let i = 0;i<9;i++){
-            if (typeof(corres1[compare[i]])!='string'){
+            if (corres1[compare[i]] && typeof(corres1[compare[i]])!='string'){
                 color = corres1[compare[i]].className.split(" ")[0];
                 refcolor = refblocks[i].className.split(" ")[0];
                 if (color == refcolor){
@@ -347,7 +347,7 @@ function enter(player){
         }
         compare = [6,7,8,11,12,13,16,17,18];
         for (let i = 0;i<9;i++){
-            if (typeof(corres2[compare[i]])!='string'){
+            if (corres2[compare[i]] && typeof(corres2[compare[i]])!='string'){
                 color = corres2[compare[i]].className.split(" ")[0];
                 refcolor = refblocks[i].className.split(" ")[0];
                 if (color == refcolor){
