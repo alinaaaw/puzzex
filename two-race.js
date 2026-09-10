@@ -22,7 +22,8 @@ let leftBt2 = document.getElementById("left2");
 let rightBt2 = document.getElementById("right2");
 let enterBt2 = document.getElementById("submit2");
 let hide = document.getElementById("hide");
-let high = 999999;
+const RECORD_KEY = "puzzex:race:best-time";
+let high = loadRecord();
 let cocolors1;
 let coposition1;
 let cocolors2;
@@ -30,7 +31,11 @@ let coposition2;
 // corresponding html div element
 let corres1;
 let corres2;
-let timer;
+let timer = null;
+let count = 0;
+let elapsedMs = 0;
+let startedAt = 0;
+let timerState = "idle";
 
 cancel.addEventListener("click",remove,false);
 document.getElementById("replay").addEventListener("click",replay,false);
@@ -38,6 +43,7 @@ resume.addEventListener("click",back,false);
 rep.addEventListener("click",replay,false);
 hide.addEventListener("click",hideTime,false);
 
+renderRecord();
 replay();
 
 // activate arrows
@@ -103,7 +109,7 @@ function back(){
     result.style.setProperty("visibility","hidden");
     resume.style.setProperty("visibility","hidden");
     act();
-    timer = setInterval(time,100);
+    resumeTimer();
 }
 
 // pause
@@ -122,13 +128,99 @@ function stop(){
     rightBt2.removeEventListener("click",right,false);
     enterBt2.removeEventListener("click",enter2,false);
     document.getElementById("output").textContent = "Paused";
-    clearInterval(timer);
+    pauseTimer();
 }
 
-// make timer works
-function time(){
-    count+=0.1;
-    document.getElementById("time").textContent = "Time used: "+parseFloat(count).toFixed(1)+"s";
+function loadRecord(){
+    try{
+        const savedRecord = localStorage.getItem(RECORD_KEY);
+        if (savedRecord === null){
+            return Infinity;
+        }
+        const parsedRecord = Number(savedRecord);
+        return Number.isFinite(parsedRecord) && parsedRecord >= 0 ? parsedRecord : Infinity;
+    }
+    catch{
+        return Infinity;
+    }
+}
+
+function renderRecord(){
+    record.textContent = Number.isFinite(high)
+        ? "Record: "+high.toFixed(1)+"s"
+        : "Record: --";
+}
+
+function updateRecord(timeSeconds){
+    const roundedTime = Number(timeSeconds.toFixed(1));
+    if (roundedTime >= high){
+        return;
+    }
+    high = roundedTime;
+    renderRecord();
+    try{
+        localStorage.setItem(RECORD_KEY,String(high));
+    }
+    catch{
+        // The current-session record still works when storage is unavailable.
+    }
+}
+
+function getElapsedMs(){
+    if (timerState === "running"){
+        return elapsedMs + performance.now() - startedAt;
+    }
+    return elapsedMs;
+}
+
+function renderTime(){
+    count = getElapsedMs()/1000;
+    document.getElementById("time").textContent = "Time used: "+count.toFixed(1)+"s";
+}
+
+function startDisplayTimer(){
+    clearInterval(timer);
+    timer = setInterval(renderTime,100);
+}
+
+function resetTimer(){
+    clearInterval(timer);
+    elapsedMs = 0;
+    startedAt = performance.now();
+    timerState = "running";
+    renderTime();
+    startDisplayTimer();
+}
+
+function pauseTimer(){
+    if (timerState !== "running"){
+        return;
+    }
+    elapsedMs += performance.now() - startedAt;
+    timerState = "paused";
+    clearInterval(timer);
+    timer = null;
+    renderTime();
+}
+
+function resumeTimer(){
+    if (timerState === "running"){
+        return;
+    }
+    startedAt = performance.now();
+    timerState = "running";
+    renderTime();
+    startDisplayTimer();
+}
+
+function finishTimer(){
+    if (timerState === "running"){
+        elapsedMs += performance.now() - startedAt;
+    }
+    timerState = "finished";
+    clearInterval(timer);
+    timer = null;
+    renderTime();
 }
 
 function replay(){
@@ -137,8 +229,7 @@ function replay(){
     rep.style.setProperty("visibility","hidden");
     pause.addEventListener("click",stop,false);
     act();
-    count = 0;
-    timer = setInterval(time,100);
+    resetTimer();
 
     cocolors1 = colors.slice();
     coposition1 = positions.slice();
@@ -265,7 +356,7 @@ function right(player){
     }
 }
 function enter(player){
-    clearInterval(timer);
+    finishTimer();
     document.removeEventListener("keydown",game,false);
     upBt1.removeEventListener("click",up1,false);
     downBt1.removeEventListener("click",down1,false);
@@ -297,10 +388,7 @@ function enter(player){
             showTime();
             document.getElementById("output").textContent = "Player 1 Win!";
             resume.style.setProperty("visibility","hidden");
-            if (count<high){
-                high = count.toFixed(1);
-                record.textContent = "Record: "+String(high)+"s";
-            }
+            updateRecord(count);
         }
         else{
             document.getElementById("output").textContent = "Player 2 Win!";
@@ -320,10 +408,7 @@ function enter(player){
             showTime();
             document.getElementById("output").textContent = "Player 2 Win!";
             resume.style.setProperty("visibility","hidden");
-            if (count<high){
-                high = count.toFixed(1);
-                record.textContent = "Record: "+String(high)+"s";
-            }
+            updateRecord(count);
         }
         else{
             document.getElementById("output").textContent = "Player 1 Win!";
@@ -359,19 +444,13 @@ function enter(player){
             showTime();
             document.getElementById("output").textContent = "Player 1 Win!";
             resume.style.setProperty("visibility","hidden");
-            if (count<high){
-                high = count.toFixed(1);
-                record.textContent = "Record: "+String(high)+"s";
-            }
+            updateRecord(count);
         }
         else if (point2==9){
             showTime();
             document.getElementById("output").textContent = "Player 2 Win!";
             resume.style.setProperty("visibility","hidden");
-            if (count<high){
-                high = count.toFixed(1);
-                record.textContent = "Record: "+String(high)+"s";
-            }
+            updateRecord(count);
         }
         else{
             document.getElementById("output").textContent = "Both Failed";
