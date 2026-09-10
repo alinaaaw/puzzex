@@ -11,7 +11,7 @@ No installation or account is required. The game supports keyboard controls and 
 ## Features
 
 - Randomized boards and target patterns for a new challenge each round
-- Single-player time trials with a best-time record for the current page session
+- Single-player time trials with a best-time record saved across browser sessions
 - Local two-player races on one device
 - Pause, replay, and show/hide timer controls
 - Responsive layouts and on-screen controls for different screen sizes
@@ -94,18 +94,24 @@ You can also open `index.html` directly, although a local server more closely ma
 
 ```text
 puzzex/
-├── index.html       # Landing page
-├── index.js         # Interactive landing-page tutorial
-├── choose.html      # Game-mode selection
-├── one-ex.html      # Single-player interface
-├── one-ex.js        # Single-player game logic
-├── one-ex.css       # Single-player styles
-├── two-race.html    # Two-player interface
-├── two-race.js      # Two-player game logic
-├── two-race.css     # Two-player styles
-├── index.css        # Landing-page styles
-└── choose.css       # Mode-selection styles
+├── assets/
+│   ├── css/                  # Page-specific styles
+│   │   ├── choose.css
+│   │   ├── index.css
+│   │   ├── one-ex.css
+│   │   └── two-race.css
+│   └── js/                   # Tutorial and game behavior
+│       ├── index.js
+│       ├── one-ex.js
+│       └── two-race.js
+├── choose.html               # Game-mode selection
+├── index.html                # GitHub Pages entry and landing page
+├── one-ex.html               # Single-player interface
+├── two-race.html             # Two-player interface
+└── README.md                 # Project documentation
 ```
+
+The root keeps the public HTML entry points so existing GitHub Pages URLs remain stable. Static resources live under `assets/`, grouped by type. Each page currently owns its stylesheet and script, which keeps this dependency-free project easy to trace without introducing a build step.
 
 ## Notes on Development
 
